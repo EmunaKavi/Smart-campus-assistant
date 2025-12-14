@@ -18,6 +18,77 @@
 
 ---
 
+## 🏗️ System Architecture
+
+High-level overview of how the Frontend, Backend, and AI components interact.
+
+```mermaid
+graph TD
+    Client[React Frontend] <-->|HTTP/REST| API[Flask API]
+    
+    subgraph Backend
+    API <-->|Logic| Logic[Business Logic]
+    Logic <-->|Embeddings| Chroma[ChromaDB Vector Store]
+    Logic <-->|Generation| LLM[Groq LLM Service]
+    end
+    
+    subgraph "External Services"
+    LLM -.->|Llama 3| GroqCloud
+    Logic -.->|Fallback| Wiki[Wikipedia API]
+    end
+```
+
+### Detailed Component Flow
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                     React Frontend (Port 3000)                   │
+│  ┌───────────────────────────────────────────────────────────┐  │
+│  │  Components:                                              │  │
+│  │  - FileUpload        - ChatInterface                      │  │
+│  │  - DocumentList      - SummaryGenerator                   │  │
+│  │  - QuizGenerator     - ConversationHistory                │  │
+│  └───────────────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────────┘
+                              ↓↑ HTTP/REST API
+┌─────────────────────────────────────────────────────────────────┐
+│                   Flask Backend (Port 5000)                      │
+│  ┌───────────────────────────────────────────────────────────┐  │
+│  │  API Endpoints:                                           │  │
+│  │  /api/status, /api/upload_files, /api/ask                │  │
+│  │  /api/summarize, /api/quiz                               │  │
+│  └───────────────────────────────────────────────────────────┘  │
+│  ┌───────────────────────────────────────────────────────────┐  │
+│  │  RAG System (The Brain)                                  │  │
+│  │  - Embeddings: HuggingFace (all-MiniLM-L6-v2)            │  │
+│  │  - Vector Store: ChromaDB                                │  │
+│  │  - LLM: Groq (llama-3.1-8b-instant)                      │  │
+│  └───────────────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+## 🔄 User Journey Flow
+
+```
+1. Upload Documents (PDF/DOCX/PPTX)
+   │
+   ├─► Backend processes files
+   ├─► Extracts text & creates chunks
+   ├─► Generates Vector Embeddings
+   └─► Stores in ChromaDB
+   
+2. Ask Question / Summarize
+   │
+   ├─► User query sent to Backend
+   ├─► System creates query embedding
+   ├─► Searches Vector DB for relevant context
+   ├─► Retrieves top matching chunks
+   │
+   └─► LLM generates answer using Context + Query
+       (With fallback to Wikipedia if no docs found)
+```
+
+---
+
 ## 🛠️ Tech Stack
 
 **Frontend:**
@@ -119,10 +190,3 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 3.  Commit your changes (`git commit -m 'Add some AmazingFeature'`)
 4.  Push to the branch (`git push origin feature/AmazingFeature`)
 5.  Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
----
-*Built with ❤️ for the Smart Campus initiative.*
