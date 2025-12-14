@@ -1,4 +1,4 @@
-# 🎓 Smart-campus-assistant
+# 🎓 Smart Campus Assistant
 
 > **From Chaos to Clarity.** An AI-powered study companion that transforms your lecture slides, notes, and documents into an interactive learning experience using RAG (Retrieval Augmented Generation).
 
