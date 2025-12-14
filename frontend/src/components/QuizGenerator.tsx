@@ -98,38 +98,40 @@ export const QuizGenerator: React.FC = () => {
                 </p>
 
                 <form onSubmit={handleGenerate} className="space-y-4">
-                    <div>
-                        <label className="block text-sm font-medium mb-1">Topic</label>
-                        <input
-                            type="text"
-                            value={topic}
-                            onChange={(e) => setTopic(e.target.value)}
-                            placeholder="e.g., Quantum Mechanics"
-                            className="w-full px-4 py-2 rounded-md border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                            disabled={loading}
-                        />
-                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label className="block text-sm font-semibold mb-2 text-foreground">Topic</label>
+                            <input
+                                type="text"
+                                value={topic}
+                                onChange={(e) => setTopic(e.target.value)}
+                                placeholder="e.g., Quantum Mechanics"
+                                className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all"
+                                disabled={loading}
+                            />
+                        </div>
 
-                    <div>
-                        <label className="block text-sm font-medium mb-1">Number of Questions</label>
-                        <select
-                            value={numQuestions}
-                            onChange={(e) => setNumQuestions(Number(e.target.value))}
-                            className="w-full px-4 py-2 rounded-md border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                            disabled={loading}
-                        >
-                            <option value={3}>3 Questions</option>
-                            <option value={5}>5 Questions</option>
-                            <option value={10}>10 Questions</option>
-                        </select>
+                        <div>
+                            <label className="block text-sm font-semibold mb-2 text-foreground">Number of Questions</label>
+                            <select
+                                value={numQuestions}
+                                onChange={(e) => setNumQuestions(Number(e.target.value))}
+                                className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all appearance-none"
+                                disabled={loading}
+                            >
+                                <option value={3}>3 Questions</option>
+                                <option value={5}>5 Questions</option>
+                                <option value={10}>10 Questions</option>
+                            </select>
+                        </div>
                     </div>
 
                     <button
                         type="submit"
                         disabled={loading || !topic.trim()}
-                        className="w-full py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 disabled:opacity-50 transition-colors flex items-center justify-center"
+                        className="w-full py-4 bg-primary text-primary-foreground font-bold text-lg rounded-xl hover:bg-primary/90 disabled:opacity-50 transition-all shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5 flex items-center justify-center gap-2"
                     >
-                        {loading && !showResults ? <Loader2 className="animate-spin mr-2 h-4 w-4" /> : <RefreshCw className="mr-2 h-4 w-4" />}
+                        {loading && !showResults ? <Loader2 className="animate-spin h-5 w-5" /> : <RefreshCw className="h-5 w-5" />}
                         {loading && !showResults ? "Generating Quiz..." : "Generate Quiz"}
                     </button>
                 </form>
@@ -143,25 +145,31 @@ export const QuizGenerator: React.FC = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: idx * 0.1 }}
-                            className="bg-card p-6 rounded-lg shadow-sm border border-border"
+                            className="bg-card p-6 md:p-8 rounded-2xl shadow-lg border border-border/50 relative overflow-hidden group"
                         >
-                            <h3 className="text-lg font-medium mb-4">
-                                {idx + 1}. {q.question}
+                            {/* Decorative number */}
+                            <div className="absolute top-0 right-0 -mr-4 -mt-4 w-24 h-24 rounded-full bg-primary/5 group-hover:bg-primary/10 transition-colors" />
+                            <div className="absolute top-4 right-6 text-4xl font-black text-primary/10 select-none">
+                                {String(idx + 1).padStart(2, '0')}
+                            </div>
+
+                            <h3 className="text-xl font-bold mb-6 pr-12 relative z-10 leading-snug">
+                                {q.question}
                             </h3>
 
-                            <div className="space-y-2">
+                            <div className="space-y-3 relative z-10">
                                 {q.options.map((option, optIdx) => {
                                     const isSelected = answers[idx] === option;
                                     const isCorrect = q.correct_answer === option;
-                                    let className = "w-full text-left p-3 rounded-md border transition-colors ";
+                                    let className = "w-full text-left p-4 rounded-xl border-2 transition-all duration-200 flex items-center justify-between group/opt ";
 
                                     if (showResults) {
-                                        if (isCorrect) className += "bg-green-100 border-green-500 text-green-800 dark:bg-green-900/30 dark:text-green-300";
-                                        else if (isSelected) className += "bg-red-100 border-red-500 text-red-800 dark:bg-red-900/30 dark:text-red-300";
-                                        else className += "border-border opacity-50";
+                                        if (isCorrect) className += "bg-green-500/10 border-green-500 text-green-700 dark:text-green-400 font-medium";
+                                        else if (isSelected) className += "bg-red-500/10 border-red-500 text-red-700 dark:text-red-400";
+                                        else className += "border-border opacity-50 bg-background";
                                     } else {
-                                        if (isSelected) className += "border-primary bg-primary/10 text-primary";
-                                        else className += "border-border hover:bg-muted";
+                                        if (isSelected) className += "border-primary bg-primary/5 text-primary shadow-sm font-medium";
+                                        else className += "border-border bg-background hover:border-primary/50 hover:bg-muted";
                                     }
 
                                     return (
@@ -171,11 +179,15 @@ export const QuizGenerator: React.FC = () => {
                                             disabled={showResults || loading}
                                             className={className}
                                         >
-                                            <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-3">
+                                                <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center text-[10px] 
+                                                    ${isSelected || (showResults && isCorrect) ? 'border-current' : 'border-muted-foreground/30 text-muted-foreground'}`}>
+                                                    {String.fromCharCode(65 + optIdx)}
+                                                </div>
                                                 <span>{option}</span>
-                                                {showResults && isCorrect && <Check className="h-4 w-4 text-green-600" />}
-                                                {showResults && isSelected && !isCorrect && <X className="h-4 w-4 text-red-600" />}
                                             </div>
+                                            {showResults && isCorrect && <Check className="h-5 w-5 text-green-600" />}
+                                            {showResults && isSelected && !isCorrect && <X className="h-5 w-5 text-red-600" />}
                                         </button>
                                     );
                                 })}
@@ -185,10 +197,10 @@ export const QuizGenerator: React.FC = () => {
                                 <motion.div
                                     initial={{ opacity: 0, height: 0 }}
                                     animate={{ opacity: 1, height: 'auto' }}
-                                    className="mt-4 p-3 bg-muted rounded-md text-sm"
+                                    className="mt-6 p-4 bg-primary/5 border border-primary/10 rounded-xl text-sm leading-relaxed"
                                 >
-                                    <span className="font-semibold">Explanation: </span>
-                                    {q.explanation}
+                                    <span className="font-bold text-primary block mb-1">Explanation: </span>
+                                    <span className="text-foreground/80">{q.explanation}</span>
                                 </motion.div>
                             )}
                         </motion.div>

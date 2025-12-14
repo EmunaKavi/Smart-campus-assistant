@@ -30,10 +30,10 @@ export const Signup: React.FC = () => {
     return (
         <div className="min-h-screen flex items-center justify-center bg-background p-4 relative overflow-hidden">
             {/* Background Elements */}
-            <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 via-transparent to-indigo-500/5 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 pointer-events-none" />
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
-                <div className="absolute -top-[20%] -right-[10%] w-[50%] h-[50%] rounded-full bg-violet-500/10 blur-[100px]" />
-                <div className="absolute top-[40%] -left-[10%] w-[40%] h-[40%] rounded-full bg-indigo-500/10 blur-[100px]" />
+                <div className="absolute -top-[20%] -right-[10%] w-[50%] h-[50%] rounded-full bg-primary/10 blur-[100px]" />
+                <div className="absolute top-[40%] -left-[10%] w-[40%] h-[40%] rounded-full bg-accent/10 blur-[100px]" />
             </div>
 
             <motion.div
@@ -43,21 +43,21 @@ export const Signup: React.FC = () => {
                 className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 bg-card rounded-3xl shadow-2xl overflow-hidden border border-border"
             >
                 {/* Left Side - Decorative */}
-                <div className="hidden md:flex flex-col justify-center p-12 bg-gradient-to-br from-indigo-600 to-violet-600 text-white relative overflow-hidden order-2 md:order-1">
-                    <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80')] bg-cover bg-center opacity-10 mix-blend-overlay" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                <div className="hidden md:flex flex-col justify-center p-12 bg-zinc-950 text-white relative overflow-hidden order-2 md:order-1">
+                    <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80')] bg-cover bg-center opacity-20 mix-blend-overlay" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
 
                     <div className="relative z-10">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm font-medium mb-6">
-                            <Sparkles size={14} className="text-yellow-300" />
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 backdrop-blur-md border border-primary/20 text-sm font-medium mb-6 text-primary">
+                            <Sparkles size={14} className="text-primary" />
                             <span>Join the Community</span>
                         </div>
 
-                        <h2 className="text-4xl font-bold mb-4 leading-tight">
-                            Start your learning journey today
+                        <h2 className="text-4xl font-bold mb-4 leading-tight text-white">
+                            Start your learning journey <span className="text-primary">today</span>
                         </h2>
 
-                        <p className="text-lg text-white/80 mb-8 leading-relaxed">
+                        <p className="text-lg text-zinc-400 mb-8 leading-relaxed">
                             Create an account to unlock all features including unlimited document uploads, AI chat, and personalized quizzes.
                         </p>
 
@@ -144,7 +144,7 @@ export const Signup: React.FC = () => {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full py-3 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-primary/25 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50 disabled:hover:scale-100 flex items-center justify-center gap-2"
+                            className="w-full py-3 bg-primary text-primary-foreground rounded-xl font-bold hover:shadow-lg hover:shadow-primary/25 hover:brightness-110 active:scale-[0.98] transition-all disabled:opacity-50 disabled:hover:scale-100 flex items-center justify-center gap-2"
                         >
                             {loading ? (
                                 <div className="h-5 w-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />

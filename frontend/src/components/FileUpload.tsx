@@ -120,16 +120,21 @@ export const FileUpload: React.FC = () => {
 
                 <div
                     {...getRootProps()}
-                    className={`border-2 border-dashed rounded-lg p-12 text-center cursor-pointer transition-colors ${isDragActive ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/50'
+                    className={`relative border-2 border-dashed rounded-xl p-16 text-center cursor-pointer transition-all duration-300 group
+                        ${isDragActive
+                            ? 'border-primary bg-primary/5 scale-[0.99] ring-4 ring-primary/10'
+                            : 'border-border hover:border-primary/50 hover:bg-muted/30'
                         }`}
                 >
                     <input {...getInputProps()} />
-                    <Upload className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
-                    <p className="text-lg font-medium">
-                        {isDragActive ? "Drop files here..." : "Drag & drop files here, or click to select"}
+                    <div className="inline-flex h-16 w-16 mb-6 rounded-full bg-muted items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <Upload className="h-8 w-8 text-muted-foreground group-hover:text-primary transition-colors" />
+                    </div>
+                    <p className="text-xl font-semibold mb-2 text-foreground">
+                        {isDragActive ? "Drop documents now" : "Drag & drop course materials"}
                     </p>
-                    <p className="text-sm text-muted-foreground mt-2">
-                        Supported formats: PDF, DOCX, PPTX, TXT, MD
+                    <p className="text-sm text-muted-foreground max-w-sm mx-auto">
+                        Supports PDF, DOCX, PPTX, TXT. (Max 5 files)
                     </p>
                 </div>
 
@@ -142,17 +147,21 @@ export const FileUpload: React.FC = () => {
                             className="mt-6 space-y-3"
                         >
                             {files.map((file) => (
-                                <div key={file.name} className="flex items-center justify-between p-3 bg-muted rounded-md">
-                                    <div className="flex items-center">
-                                        <File className="h-5 w-5 mr-3 text-primary" />
-                                        <span className="text-sm font-medium">{file.name}</span>
-                                        <span className="ml-2 text-xs text-muted-foreground">
-                                            ({(file.size / 1024 / 1024).toFixed(2)} MB)
-                                        </span>
+                                <div key={file.name} className="flex items-center justify-between p-4 bg-muted/40 border border-border rounded-xl">
+                                    <div className="flex items-center gap-4">
+                                        <div className="h-10 w-10 rounded-lg bg-background flex items-center justify-center border border-border">
+                                            <File className="h-5 w-5 text-primary" />
+                                        </div>
+                                        <div>
+                                            <p className="text-sm font-semibold text-foreground">{file.name}</p>
+                                            <p className="text-xs text-muted-foreground">
+                                                {(file.size / 1024 / 1024).toFixed(2)} MB
+                                            </p>
+                                        </div>
                                     </div>
                                     <button
                                         onClick={() => removeFile(file.name)}
-                                        className="text-muted-foreground hover:text-destructive"
+                                        className="p-2 rounded-lg hover:bg-destructive/10 hover:text-destructive text-muted-foreground transition-colors"
                                     >
                                         <X className="h-5 w-5" />
                                     </button>
@@ -216,7 +225,9 @@ export const FileUpload: React.FC = () => {
                                 <div key={idx} className="flex items-center justify-between text-sm p-2 hover:bg-muted rounded">
                                     <div className="flex items-center">
                                         <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                                        <span className="truncate max-w-xs">{doc.filename}</span>
+                                        <span className="truncate max-w-xs" title={doc.filename}>
+                                            {doc.filename.split('_').slice(2).join('_') || doc.filename}
+                                        </span>
                                     </div>
                                     <span className="text-muted-foreground text-xs">
                                         {new Date(doc.uploaded_at).toLocaleDateString()}

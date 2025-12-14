@@ -77,50 +77,56 @@ export const SummaryGenerator: React.FC = () => {
                     Enter a topic to generate a comprehensive summary from your uploaded documents.
                 </p>
 
-                <form onSubmit={handleGenerate} className="flex gap-4">
+                <form onSubmit={handleGenerate} className="flex gap-4 items-center bg-background p-2 pr-2 rounded-xl border-2 border-border focus-within:border-primary/50 focus-within:ring-4 focus-within:ring-primary/10 transition-all duration-300">
                     <input
                         type="text"
                         value={topic}
                         onChange={(e) => setTopic(e.target.value)}
                         placeholder="Enter topic (e.g., 'Thermodynamics Laws', 'History of Rome')"
-                        className="flex-1 px-4 py-2 rounded-md border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                        className="flex-1 px-4 py-3 rounded-lg border-none bg-transparent focus:outline-none text-lg placeholder:text-muted-foreground/50"
                         disabled={loading}
                     />
                     <button
                         type="submit"
                         disabled={loading || !topic.trim()}
-                        className="px-6 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 disabled:opacity-50 transition-colors flex items-center"
+                        className="px-8 py-3 bg-primary text-primary-foreground font-bold rounded-lg hover:bg-primary/90 disabled:opacity-50 transition-all shadow-lg shadow-primary/20 hover:shadow-primary/40 flex items-center gap-2"
                     >
-                        {loading ? <Loader2 className="animate-spin mr-2 h-4 w-4" /> : null}
-                        Generate
+                        {loading ? <Loader2 className="animate-spin h-5 w-5" /> : <FileText className="h-5 w-5" />}
+                        {loading ? "Generating..." : "Generate"}
                     </button>
                 </form>
             </div>
 
             {summary && (
-                <div className="bg-card p-8 rounded-lg shadow-sm border border-border animate-in fade-in slide-in-from-bottom-4 duration-500">
-                    <div className="flex justify-between items-center mb-6 border-b border-border pb-4">
-                        <h3 className="text-xl font-semibold">Summary: {topic}</h3>
+                <div className="bg-card rounded-2xl shadow-xl border border-border overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-700">
+                    <div className="flex justify-between items-center p-6 bg-muted/30 border-b border-border">
+                        <div className="flex items-center gap-3">
+                            <div className="p-2 bg-primary/10 rounded-lg text-primary">
+                                <FileText className="h-5 w-5" />
+                            </div>
+                            <h3 className="text-xl font-bold text-foreground">Summary: {topic}</h3>
+                        </div>
                         <button
                             onClick={handleExport}
-                            className="flex items-center text-sm text-primary hover:underline"
+                            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-background border border-border hover:bg-muted text-sm font-medium transition-colors"
                         >
-                            <Download className="mr-1 h-4 w-4" />
-                            Export
+                            <Download className="h-4 w-4" />
+                            Export PDF
                         </button>
                     </div>
-                    <div id="summary-content" className="prose prose-sm dark:prose-invert max-w-none p-6 bg-white dark:bg-card rounded-md shadow-sm">
-                        <h1 className="text-2xl font-bold mb-6 text-center border-b pb-4">{topic}</h1>
+                    <div id="summary-content" className="prose prose-lg dark:prose-invert max-w-none p-10 bg-card">
+                        <h1 className="text-3xl font-bold mb-8 pb-4 border-b border-border/50 text-center text-primary">{topic}</h1>
                         <ReactMarkdown
                             components={{
-                                h1: ({ node, ...props }) => <h1 className="text-2xl font-bold mt-6 mb-4" {...props} />,
-                                h2: ({ node, ...props }) => <h2 className="text-xl font-bold mt-5 mb-3 text-primary" {...props} />,
-                                h3: ({ node, ...props }) => <h3 className="text-lg font-bold mt-4 mb-2 text-foreground" {...props} />,
-                                ul: ({ node, ...props }) => <ul className="list-disc pl-5 mb-4 space-y-1" {...props} />,
-                                ol: ({ node, ...props }) => <ol className="list-decimal pl-5 mb-4 space-y-1" {...props} />,
+                                h1: ({ node, ...props }) => <h1 className="text-2xl font-bold mt-8 mb-4 text-foreground" {...props} />,
+                                h2: ({ node, ...props }) => <h2 className="text-xl font-bold mt-6 mb-3 text-primary border-l-4 border-primary pl-4" {...props} />,
+                                h3: ({ node, ...props }) => <h3 className="text-lg font-bold mt-5 mb-2 text-foreground" {...props} />,
+                                ul: ({ node, ...props }) => <ul className="list-disc pl-5 mb-4 space-y-2 text-muted-foreground" {...props} />,
+                                ol: ({ node, ...props }) => <ol className="list-decimal pl-5 mb-4 space-y-2 text-muted-foreground" {...props} />,
                                 li: ({ node, ...props }) => <li className="pl-1" {...props} />,
                                 strong: ({ node, ...props }) => <strong className="font-bold text-foreground" {...props} />,
-                                p: ({ node, ...props }) => <p className="mb-4 leading-relaxed" {...props} />,
+                                p: ({ node, ...props }) => <p className="mb-4 leading-relaxed text-muted-foreground" {...props} />,
+                                blockquote: ({ node, ...props }) => <blockquote className="border-l-4 border-primary/50 pl-4 italic my-4 bg-muted/20 p-4 rounded-r-lg" {...props} />,
                             }}
                         >
                             {summary}

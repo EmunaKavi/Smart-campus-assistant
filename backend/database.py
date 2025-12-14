@@ -7,9 +7,17 @@ load_dotenv()
 
 import certifi
 
-# Use the URI provided in the prompt or from env
-# Ideally from env, but I'll set a default if not present, or use the one from prompt as fallback
-MONGO_URI = os.getenv("MONGO_URI", "mongodb+srv://gk5139272_db_user:0OhJkotGM6B0sG9r@cluster0.yt7pddg.mongodb.net/?appName=Cluster0")
+# DIRECT CONNECTION (Bypassing DNS SRV Lookup)
+# Addresses extracted from previous error logs
+MONGO_URI_DIRECT = (
+    "mongodb://gk5139272_db_user:0OhJkotGM6B0sG9r"
+    "@ac-lfxuyux-shard-00-00.yt7pddg.mongodb.net:27017,"
+    "ac-lfxuyux-shard-00-01.yt7pddg.mongodb.net:27017,"
+    "ac-lfxuyux-shard-00-02.yt7pddg.mongodb.net:27017"
+    "/?ssl=true&authSource=admin&appName=Cluster0"
+)
+
+MONGO_URI = os.getenv("MONGO_URI", MONGO_URI_DIRECT)
 
 client = MongoClient(
     MONGO_URI, 

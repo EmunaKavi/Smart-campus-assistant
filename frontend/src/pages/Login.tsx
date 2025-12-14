@@ -29,10 +29,10 @@ export const Login: React.FC = () => {
     return (
         <div className="min-h-screen flex items-center justify-center bg-background p-4 relative overflow-hidden">
             {/* Background Elements */}
-            <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 via-transparent to-indigo-500/5 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 pointer-events-none" />
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
-                <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-violet-500/10 blur-[100px]" />
-                <div className="absolute top-[40%] -right-[10%] w-[40%] h-[40%] rounded-full bg-indigo-500/10 blur-[100px]" />
+                <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-primary/10 blur-[100px]" />
+                <div className="absolute top-[40%] -right-[10%] w-[40%] h-[40%] rounded-full bg-accent/10 blur-[100px]" />
             </div>
 
             <motion.div
@@ -94,7 +94,7 @@ export const Login: React.FC = () => {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full py-3 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-primary/25 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50 disabled:hover:scale-100 flex items-center justify-center gap-2"
+                            className="w-full py-3 bg-primary text-primary-foreground rounded-xl font-bold hover:shadow-lg hover:shadow-primary/25 hover:brightness-110 active:scale-[0.98] transition-all disabled:opacity-50 disabled:hover:scale-100 flex items-center justify-center gap-2"
                         >
                             {loading ? (
                                 <div className="h-5 w-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -115,21 +115,21 @@ export const Login: React.FC = () => {
                 </div>
 
                 {/* Right Side - Decorative */}
-                <div className="hidden md:flex flex-col justify-center p-12 bg-gradient-to-br from-violet-600 to-indigo-600 text-white relative overflow-hidden">
-                    <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center opacity-10 mix-blend-overlay" />
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/30" />
+                <div className="hidden md:flex flex-col justify-center p-12 bg-zinc-950 text-white relative overflow-hidden">
+                    <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-20 mix-blend-overlay" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60" />
 
                     <div className="relative z-10">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm font-medium mb-6">
-                            <Sparkles size={14} className="text-yellow-300" />
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 backdrop-blur-md border border-primary/20 text-sm font-medium mb-6 text-primary">
+                            <Sparkles size={14} className="text-primary" />
                             <span>AI-Powered Learning</span>
                         </div>
 
-                        <h2 className="text-4xl font-bold mb-4 leading-tight">
-                            Master your coursework with AI assistance
+                        <h2 className="text-4xl font-bold mb-4 leading-tight text-white">
+                            Master your coursework with <span className="text-primary">AI assistance</span>
                         </h2>
 
-                        <p className="text-lg text-white/80 mb-8 leading-relaxed">
+                        <p className="text-lg text-zinc-400 mb-8 leading-relaxed">
                             Upload your documents, ask questions, and get instant summaries. Join thousands of students learning smarter, not harder.
                         </p>
 

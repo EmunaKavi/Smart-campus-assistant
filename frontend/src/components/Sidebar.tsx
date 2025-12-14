@@ -22,10 +22,10 @@ export const Sidebar: React.FC = () => {
             <div className="p-6 border-b border-border">
                 <Link to="/dashboard" className="flex items-center gap-3 group">
                     <div className="relative">
-                        <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center text-white font-bold shadow-lg shadow-violet-500/25">
+                        <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center text-primary-foreground font-bold shadow-lg shadow-primary/25">
                             SC
                         </div>
-                        <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 blur-lg opacity-40 group-hover:opacity-60 transition-opacity" />
+                        <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-primary to-accent blur-lg opacity-40 group-hover:opacity-60 transition-opacity" />
                     </div>
                     <div>
                         <h1 className="text-lg font-bold text-foreground">Smart Campus</h1>
@@ -46,7 +46,7 @@ export const Sidebar: React.FC = () => {
                                 clsx(
                                     'flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200',
                                     isActive
-                                        ? 'bg-gradient-to-r from-violet-500/10 to-indigo-500/10 text-primary shadow-sm border border-primary/10'
+                                        ? 'bg-gradient-to-r from-primary/10 to-accent/10 text-primary shadow-sm border border-primary/10'
                                         : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                                 )
                             }
@@ -61,7 +61,7 @@ export const Sidebar: React.FC = () => {
             {/* User Section */}
             <div className="p-4 border-t border-border">
                 <div className="flex items-center gap-3 p-3 rounded-xl bg-muted/50 mb-3">
-                    <div className="h-10 w-10 rounded-full bg-gradient-to-br from-violet-500 to-purple-500 flex items-center justify-center text-white font-semibold shadow-lg">
+                    <div className="h-10 w-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-primary-foreground font-semibold shadow-lg">
                         {user?.name?.[0]?.toUpperCase() || 'U'}
                     </div>
                     <div className="flex-1 min-w-0">

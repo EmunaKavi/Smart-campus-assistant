@@ -6,47 +6,76 @@
 
 @layer base {
   :root {
-    --background: 220 20% 97%;
-    --foreground: 224 71% 4%;
+    /* Cyberpunk / High-Tech - Light Mode (Clean Lab Look) */
+    --background: 210 40% 98%;
+    /* Ice White */
+    --foreground: 222 47% 11%;
+    /* Deep Blue Black */
+
     --card: 0 0% 100%;
-    --card-foreground: 224 71% 4%;
+    --card-foreground: 222 47% 11%;
+
     --popover: 0 0% 100%;
-    --popover-foreground: 224 71% 4%;
-    --primary: 262 83% 58%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 263 70% 50%;
+    /* Electric Violet */
     --primary-foreground: 210 40% 98%;
-    --secondary: 220 14% 96%;
-    --secondary-foreground: 220 9% 46%;
-    --muted: 220 14% 96%;
-    --muted-foreground: 220 9% 46%;
-    --accent: 262 83% 58%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 84% 60%;
+
+    --secondary: 199 89% 48%;
+    /* Neon Cyan */
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 316 73% 52%;
+    /* Hot Pink */
+    --accent-foreground: 222 47% 11%;
+
+    --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 262 83% 58%;
-    --radius: 0.75rem;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 263 70% 50%;
+    --radius: 0.25rem;
   }
 
   .dark {
-    --background: 224 71% 4%;
-    --foreground: 213 31% 91%;
-    --card: 224 71% 8%;
-    --card-foreground: 213 31% 91%;
-    --popover: 224 71% 8%;
-    --popover-foreground: 213 31% 91%;
+    /* Cyberpunk / High-Tech - Dark Mode (Neon Horizon) */
+    --background: 222 47% 11%;
+    /* Deep Space Blue */
+    --foreground: 210 40% 98%;
+    /* Ice White */
+
+    --card: 217 33% 17%;
+    /* Slate 800 */
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+
     --primary: 263 70% 50%;
+    /* Electric Violet */
     --primary-foreground: 210 40% 98%;
-    --secondary: 215 28% 17%;
-    --secondary-foreground: 213 31% 91%;
-    --muted: 215 28% 17%;
-    --muted-foreground: 215 20% 65%;
-    --accent: 263 70% 50%;
+
+    --secondary: 199 89% 48%;
+    /* Neon Cyan */
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 316 73% 52%;
+    /* Hot Pink */
     --accent-foreground: 210 40% 98%;
-    --destructive: 0 63% 31%;
+
+    --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 215 28% 17%;
-    --input: 215 28% 17%;
+
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
     --ring: 263 70% 50%;
   }
 }
@@ -69,7 +98,32 @@
 
   /* Glassmorphism card */
   .glass-card {
-    @apply bg-white/80 dark:bg-card/80 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-xl;
+    @apply bg-card/80 backdrop-blur-xl border border-border/50 shadow-xl;
+  }
+
+  /* Moving Background Animation */
+  @keyframes grid-move {
+    0% {
+      background-position: 0 0;
+    }
+
+    100% {
+      background-position: 40px 40px;
+    }
+  }
+
+  .bg-grid-animate {
+    background-size: 40px 40px;
+    background-image:
+      linear-gradient(to right, rgba(var(--primary), 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(var(--primary), 0.05) 1px, transparent 1px);
+    animation: grid-move 4s linear infinite;
+  }
+
+  .dark .bg-grid-animate {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
   }
 
   /* Gradient text */
